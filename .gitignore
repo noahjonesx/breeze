@@ -1,0 +1,12 @@
+# server
+server/.env
+server/breeze.db
+server/breeze
+
+# app
+app/node_modules/
+app/.expo/
+app/dist/
+
+# general
+.DS_Store
