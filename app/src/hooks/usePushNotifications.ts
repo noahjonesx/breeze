@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as Notifications from "expo-notifications";
 import * as Device from "expo-device";
+import Constants from "expo-constants";
 import { Platform } from "react-native";
 
 Notifications.setNotificationHandler({
@@ -50,6 +51,7 @@ async function registerForPushNotifications(): Promise<string> {
     throw new Error("Permission not granted for push notifications.");
   }
 
-  const token = await Notifications.getExpoPushTokenAsync();
+  const projectId = Constants.expoConfig?.extra?.eas?.projectId;
+  const token = await Notifications.getExpoPushTokenAsync({ projectId });
   return token.data;
 }
