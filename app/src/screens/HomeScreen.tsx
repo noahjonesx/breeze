@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,18 +6,19 @@ import {
   ActivityIndicator,
   ScrollView,
   Pressable,
-  Alert,
-  Clipboard,
 } from "react-native";
+import * as Clipboard from "expo-clipboard";
 import { usePushNotifications } from "../hooks/usePushNotifications";
 
 export default function HomeScreen() {
   const { expoPushToken, error } = usePushNotifications();
+  const [copied, setCopied] = useState(false);
 
-  function copyToken() {
+  async function copyToken() {
     if (!expoPushToken) return;
-    Clipboard.setString(expoPushToken);
-    Alert.alert("Copied", "Paste this token into your server .env file.");
+    await Clipboard.setStringAsync(expoPushToken);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   }
 
   return (
@@ -35,7 +36,7 @@ export default function HomeScreen() {
               {expoPushToken}
             </Text>
             <Pressable style={styles.button} onPress={copyToken}>
-              <Text style={styles.buttonText}>Copy token</Text>
+              <Text style={styles.buttonText}>{copied ? "Copied!" : "Copy token"}</Text>
             </Pressable>
           </>
         )}

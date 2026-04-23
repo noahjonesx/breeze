@@ -3,7 +3,10 @@
     "allow": [
       "Bash(xargs ls *)",
       "Bash(node -e ' *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(cat .gitignore)",
+      "Bash(cat app/.gitignore)",
+      "Bash(git status *)"
     ]
   }
 }
